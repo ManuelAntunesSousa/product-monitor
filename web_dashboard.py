@@ -15,7 +15,7 @@ st.title("🛒 ETB1 Stock Monitor")
 st_autorefresh(interval=REFRESH_INTERVAL_MS, key="auto_refresh")
 
 # === Countdown Timer ===
-remaining = REFRESH_INTERVAL_MINUTES * 60  # seconds
+remaining = int(REFRESH_INTERVAL_MINUTES * 60)  # must be int
 countdown = st.empty()
 
 def format_time(s):
