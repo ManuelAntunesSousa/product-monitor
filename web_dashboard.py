@@ -2,7 +2,7 @@ import streamlit as st
 from monitors.site_checker import MONITORS
 
 st.set_page_config(page_title="Product Monitor", page_icon="🛒")
-st.title("🛒 Product Stock Monitor")
+st.title("🛒 ETB Stock Monitor")
 
 if st.button("🔍 Check Stock Now"):
     for site in MONITORS:
