@@ -28,14 +28,21 @@ def check_totalcards():
     try:
         resp = requests.get(url, headers=HEADERS, timeout=10)
         soup = BeautifulSoup(resp.text, "html.parser")
+
+        # Check page for "pre-order" or "out of stock"
+        page_text = soup.text.lower()
+        if "pre-order" in page_text or "preorder" in page_text or "out of stock" in page_text:
+            return False
+
+        # Check button if it's present and not disabled
         button = soup.find("button", {"name": "add"})
         if not button:
             return False
-        button_text = button.text.strip().lower()
-        return not any(k in button_text for k in ["sold out", "pre-order", "unavailable", "coming soon"])
+        return "disabled" not in button.attrs
     except Exception as e:
         print(f"⚠️ TotalCards error: {e}")
         return False
+
 
 def check_gamestop():
     url = "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-white-flare-elite-trainer-box/20021658.html"
