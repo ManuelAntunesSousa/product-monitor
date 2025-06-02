@@ -4,7 +4,7 @@ from monitors.site_checker import MONITORS
 import time
 
 # === Settings ===
-REFRESH_INTERVAL_MINUTES = 0.25
+REFRESH_INTERVAL_MINUTES = 1
 REFRESH_INTERVAL_MS = REFRESH_INTERVAL_MINUTES * 60 * 1000
 
 # === Set up Streamlit page ===
