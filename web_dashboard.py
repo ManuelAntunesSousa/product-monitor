@@ -1,34 +1,26 @@
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh
 from monitors.site_checker import MONITORS
-import time
+import datetime
 
-# === Settings ===
+# === Config ===
 REFRESH_INTERVAL_MINUTES = 1
 REFRESH_INTERVAL_MS = REFRESH_INTERVAL_MINUTES * 60 * 1000
 
-# === Set up Streamlit page ===
+# === Streamlit Setup ===
 st.set_page_config(page_title="Product Monitor", page_icon="🛒")
 st.title("🛒 ETB Stock Monitor")
 
-# === Auto-refresh every X minutes ===
-count = st_autorefresh(interval=REFRESH_INTERVAL_MS, key="auto_refresh")
+# === Trigger auto-refresh ===
+st_autorefresh(interval=REFRESH_INTERVAL_MS, key="auto_refresh")
 
-# === Countdown Timer ===
-remaining = int(REFRESH_INTERVAL_MINUTES * 60)
-countdown = st.empty()
+# === Show next refresh time ===
+now = datetime.datetime.now()
+next_refresh = now + datetime.timedelta(minutes=REFRESH_INTERVAL_MINUTES)
+st.info(f"🔄 Auto-refreshing at **{next_refresh.strftime('%H:%M:%S')}**")
 
-def format_time(s):
-    mins, secs = divmod(s, 60)
-    return f"{mins:02d}:{secs:02d}"
-
-for i in range(remaining, 0, -1):
-    countdown.markdown(f"⏳ Refreshing in `{format_time(i)}`", unsafe_allow_html=True)
-    time.sleep(1)
-
-# === Show results automatically after refresh ===
-st.subheader("🧾 Current Stock Status")
-
+# === Stock Check Results ===
+st.subheader("📦 Current Stock Status")
 for site in MONITORS:
     name = site["name"]
     url = site["url"]
@@ -42,6 +34,6 @@ for site in MONITORS:
     except Exception as e:
         st.error(f"⚠️ Error checking {name}: {e}")
 
-# === Optional: Manual trigger ===
+# === Manual Refresh Button ===
 if st.button("🔁 Check Again Now"):
     st.experimental_rerun()
