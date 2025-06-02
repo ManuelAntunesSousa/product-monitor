@@ -9,13 +9,13 @@ REFRESH_INTERVAL_MS = REFRESH_INTERVAL_MINUTES * 60 * 1000
 
 # === Set up Streamlit page ===
 st.set_page_config(page_title="Product Monitor", page_icon="🛒")
-st.title("🛒 ETB1 Stock Monitor")
+st.title("🛒 ETB Stock Monitor")
 
 # === Auto-refresh every X minutes ===
-st_autorefresh(interval=REFRESH_INTERVAL_MS, key="auto_refresh")
+count = st_autorefresh(interval=REFRESH_INTERVAL_MS, key="auto_refresh")
 
 # === Countdown Timer ===
-remaining = int(REFRESH_INTERVAL_MINUTES * 60)  # must be int
+remaining = int(REFRESH_INTERVAL_MINUTES * 60)
 countdown = st.empty()
 
 def format_time(s):
@@ -26,17 +26,22 @@ for i in range(remaining, 0, -1):
     countdown.markdown(f"⏳ Refreshing in `{format_time(i)}`", unsafe_allow_html=True)
     time.sleep(1)
 
-# === Check Now Button ===
-if st.button("🔍 Check Stock Now"):
-    for site in MONITORS:
-        name = site["name"]
-        url = site["url"]
-        check_fn = site["check"]
-        try:
-            if check_fn():
-                st.success(f"✅ {name}: IN STOCK!")
-                st.markdown(f"[Buy Now]({url})")
-            else:
-                st.warning(f"❌ {name}: Not in stock.")
-        except Exception as e:
-            st.error(f"⚠️ Error checking {name}: {e}")
+# === Show results automatically after refresh ===
+st.subheader("🧾 Current Stock Status")
+
+for site in MONITORS:
+    name = site["name"]
+    url = site["url"]
+    check_fn = site["check"]
+    try:
+        if check_fn():
+            st.success(f"✅ {name}: IN STOCK!")
+            st.markdown(f"[Buy Now]({url})")
+        else:
+            st.warning(f"❌ {name}: Not in stock.")
+    except Exception as e:
+        st.error(f"⚠️ Error checking {name}: {e}")
+
+# === Optional: Manual trigger ===
+if st.button("🔁 Check Again Now"):
+    st.experimental_rerun()
