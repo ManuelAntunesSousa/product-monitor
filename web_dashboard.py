@@ -9,7 +9,7 @@ REFRESH_INTERVAL_MS = REFRESH_INTERVAL_MINUTES * 60 * 1000
 
 # === Set up Streamlit page ===
 st.set_page_config(page_title="Product Monitor", page_icon="🛒")
-st.title("🛒 ETB Stock Monitor")
+st.title("🛒 ETB1 Stock Monitor")
 
 # === Auto-refresh every X minutes ===
 st_autorefresh(interval=REFRESH_INTERVAL_MS, key="auto_refresh")
