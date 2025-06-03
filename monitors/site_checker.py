@@ -103,3 +103,28 @@ MONITORS = [
         "check": check_ventura
     },
 ]
+
+
+
+PRODUCTS = {
+    "White Flare ETB": [
+        {
+            "name": "Lotus Valley",
+            "url": "https://lotusvalley.pt/produto/white-flare-elite-trainer-box/",
+            "check": lambda: generic_checker("https://lotusvalley.pt/produto/white-flare-elite-trainer-box/")
+        },
+        {
+            "name": "Total Cards",
+            "url": "https://totalcards.net/collections/pokemon-elite-trainer-boxes/products/pokemon-scarlet-violet-white-flare-elite-trainer-box",
+            "check": check_totalcards
+        },
+        # more...
+    ],
+    "Future Ultra Box": [
+        {
+            "name": "Example Store",
+            "url": "https://example.com/future-ultra-box",
+            "check": lambda: generic_checker("https://example.com/future-ultra-box")
+        }
+    ]
+}
