@@ -23,8 +23,7 @@ def generic_checker(url):
         print(f"⚠️ Error checking {url}: {e}")
         return False
 
-def check_totalcards():
-    url = "https://totalcards.net/collections/pokemon-elite-trainer-boxes/products/pokemon-scarlet-violet-white-flare-elite-trainer-box"
+def check_totalcards_url(url):
     try:
         resp = requests.get(url, headers=HEADERS, timeout=10)
         soup = BeautifulSoup(resp.text, "html.parser")
@@ -37,8 +36,7 @@ def check_totalcards():
         print(f"⚠️ TotalCards error: {e}")
         return False
 
-def check_gamestop():
-    url = "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-white-flare-elite-trainer-box/20021658.html"
+def check_gamestop_url(url):
     try:
         resp = requests.get(url, headers=HEADERS, timeout=10)
         soup = BeautifulSoup(resp.text, "html.parser")
@@ -48,8 +46,7 @@ def check_gamestop():
         print(f"⚠️ GameStop error: {e}")
         return False
 
-def check_ventura():
-    url = "https://venturacardgames.com/products/pokemon-tcg-scarlet-violet-white-flare-elite-trainer-box-reshiram-edition-english"
+def check_ventura_url(url):
     try:
         resp = requests.get(url, headers=HEADERS, timeout=10)
         soup = BeautifulSoup(resp.text, "html.parser")
@@ -59,7 +56,8 @@ def check_ventura():
         print(f"⚠️ Ventura error: {e}")
         return False
 
-# Grouped product logic
+# === PRODUCTS ===
+
 PRODUCTS = {
     "White Flare ETB": [
         {
@@ -70,18 +68,18 @@ PRODUCTS = {
         {
             "name": "Total Cards",
             "url": "https://totalcards.net/collections/pokemon-elite-trainer-boxes/products/pokemon-scarlet-violet-white-flare-elite-trainer-box",
-            "check": check_totalcards
+            "check": lambda: check_totalcards_url("https://totalcards.net/collections/pokemon-elite-trainer-boxes/products/pokemon-scarlet-violet-white-flare-elite-trainer-box")
         },
         {
             "name": "GameStop",
             "url": "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-white-flare-elite-trainer-box/20021658.html",
-            "check": check_gamestop
+            "check": lambda: check_gamestop_url("https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-white-flare-elite-trainer-box/20021658.html")
         },
         {
             "name": "Ventura",
             "url": "https://venturacardgames.com/products/pokemon-tcg-scarlet-violet-white-flare-elite-trainer-box-reshiram-edition-english",
-            "check": check_ventura
-        },
+            "check": lambda: check_ventura_url("https://venturacardgames.com/products/pokemon-tcg-scarlet-violet-white-flare-elite-trainer-box-reshiram-edition-english")
+        }
     ],
     "Black Bolt ETB": [
         {
@@ -97,12 +95,12 @@ PRODUCTS = {
         {
             "name": "Total Cards",
             "url": "https://totalcards.net/collections/pokemon-elite-trainer-boxes/products/pokemon-scarlet-violet-black-bolt-elite-trainer-box",
-            "check": lambda: generic_checker("https://totalcards.net/collections/pokemon-elite-trainer-boxes/products/pokemon-scarlet-violet-black-bolt-elite-trainer-box")
+            "check": lambda: check_totalcards_url("https://totalcards.net/collections/pokemon-elite-trainer-boxes/products/pokemon-scarlet-violet-black-bolt-elite-trainer-box")
         },
         {
             "name": "Ventura",
             "url": "https://venturacardgames.com/products/pokemon-tcg-scarlet-violet-black-bolt-elite-trainer-box-zekrom-edition-english-pre-order",
-            "check": lambda: generic_checker("https://venturacardgames.com/products/pokemon-tcg-scarlet-violet-black-bolt-elite-trainer-box-zekrom-edition-english-pre-order")
+            "check": lambda: check_ventura_url("https://venturacardgames.com/products/pokemon-tcg-scarlet-violet-black-bolt-elite-trainer-box-zekrom-edition-english-pre-order")
         },
         {
             "name": "Fantasia Cards",
