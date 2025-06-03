@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh
-from monitors.site_checker import MONITORS
+from monitors.site_checker import PRODUCTS
 import datetime
 
 # === Config ===
@@ -20,19 +20,20 @@ next_refresh = now + datetime.timedelta(minutes=REFRESH_INTERVAL_MINUTES)
 st.info(f"🔄 Auto-refreshing at **{next_refresh.strftime('%H:%M:%S')}**")
 
 # === Stock Check Results ===
-st.subheader("📦 Current Stock Status")
-for site in MONITORS:
-    name = site["name"]
-    url = site["url"]
-    check_fn = site["check"]
-    try:
-        if check_fn():
-            st.success(f"✅ {name}: IN STOCK!")
-            st.markdown(f"[Buy Now]({url})")
-        else:
-            st.warning(f"❌ {name}: Not in stock.")
-    except Exception as e:
-        st.error(f"⚠️ Error checking {name}: {e}")
+for product, sites in PRODUCTS.items():
+    st.subheader(f"📦 {product}")
+    for site in sites:
+        name = site["name"]
+        url = site["url"]
+        check_fn = site["check"]
+        try:
+            if check_fn():
+                st.success(f"✅ {name}: IN STOCK!")
+                st.markdown(f"[Buy Now]({url})")
+            else:
+                st.warning(f"❌ {name}: Not in stock.")
+        except Exception as e:
+            st.error(f"⚠️ Error checking {name}: {e}")
 
 # === Manual Refresh Button ===
 if st.button("🔁 Check Again Now"):
