@@ -83,11 +83,31 @@ PRODUCTS = {
             "check": check_ventura
         },
     ],
-    "Future Ultra Box": [
+    "Black Bolt ETB": [
         {
-            "name": "Example Store",
-            "url": "https://example.com/future-ultra-box",
-            "check": lambda: generic_checker("https://example.com/future-ultra-box")
+            "name": "Lotus Valley",
+            "url": "https://lotusvalley.pt/produto/black-bolt-elite-trainer-box/",
+            "check": lambda: generic_checker("https://lotusvalley.pt/produto/black-bolt-elite-trainer-box/")
+        },
+        {
+            "name": "Press Start",
+            "url": "https://www.pressstart.pt/en/pokemon-tcg-scarlet-violet-white-flare/cartas-pokemon-tcg-scarlet-violet-black-bolt-elite-trainer-box.html",
+            "check": lambda: generic_checker("https://www.pressstart.pt/en/pokemon-tcg-scarlet-violet-white-flare/cartas-pokemon-tcg-scarlet-violet-black-bolt-elite-trainer-box.html")
+        },
+        {
+            "name": "Total Cards",
+            "url": "https://totalcards.net/collections/pokemon-elite-trainer-boxes/products/pokemon-scarlet-violet-black-bolt-elite-trainer-box",
+            "check": lambda: generic_checker("https://totalcards.net/collections/pokemon-elite-trainer-boxes/products/pokemon-scarlet-violet-black-bolt-elite-trainer-box")
+        },
+        {
+            "name": "Ventura",
+            "url": "https://venturacardgames.com/products/pokemon-tcg-scarlet-violet-black-bolt-elite-trainer-box-zekrom-edition-english-pre-order",
+            "check": lambda: generic_checker("https://venturacardgames.com/products/pokemon-tcg-scarlet-violet-black-bolt-elite-trainer-box-zekrom-edition-english-pre-order")
+        },
+        {
+            "name": "Fantasia Cards",
+            "url": "https://fantasiacards.de/en/collections/pokemon-box-englisch-fantasiacards/products/pokemon-black-bolt-elite-trainer-box-eng",
+            "check": lambda: generic_checker("https://fantasiacards.de/en/collections/pokemon-box-englisch-fantasiacards/products/pokemon-black-bolt-elite-trainer-box-eng")
         }
     ]
 }
